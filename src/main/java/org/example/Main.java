@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @SpringBootApplication
 @RestController
 public class Main {
@@ -17,11 +19,11 @@ public class Main {
     @Bean
     public CommandLineRunner init(@Autowired Clientes clientes) {
             return args -> {
-                Cliente cliente = new Cliente("Jefferson");
-                clientes.salvar(cliente);
+                clientes.salvar(new Cliente("Jefferson"));
+                clientes.salvar(new Cliente("Raquel"));
 
-                Cliente cliente2 = new Cliente("Raquel");
-                clientes.salvar(cliente2);
+                List<Cliente> todosClientes = clientes.obterTodos();
+                todosClientes.forEach(System.out::println);
             };
 
     }
